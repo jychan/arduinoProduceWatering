@@ -8,31 +8,50 @@
  *  
  */
 
+// TIMING CONFIGURATION -------------------
 const int wateringInterval=5000; // ms to wait between each watering; 1000 ms = 1 s
 const int wateringDuration=2000; // ms to water (ms to leave pump+lights+music on while watering)
 boolean wateringOn=false; // initialize variable for the state of watering system
 unsigned long startTime; //
 
+// BUTTON MAPPING -------------------------
 const int slayerButtonPin = 2; // pin number of the slayer button
 int slayerButtonState = 0; // initialize variable for reading slayer button status
 
+const int testPumpButtonPin = 3; // pin number for the test pump button. pressing this button activates the pump only.
+int testPumpButtonState = 0; 
+boolean tempPumpOn=false; // initialize variable for testing pump on/off state
 
 // the setup function runs once when you press reset or power the board
 void setup() {
   // put your setup code here, to run once:
 
-
-  // initialize the slayer pushbutton pin as an input:
-  pinMode(slayerButtonPin, INPUT);
+  // initialize pushbuttons:
+  pinMode(slayerButtonPin, INPUT); // set the slayer push button pin as an input
+  pinMode(testPumpButtonPin, INPUT); // set the test pump button as an input
 
   // millis() gets the # of milliseconds since the Arduino began running the program
-  startTime=millis(); // initialize start time  
+  startTime=millis(); // initialize watering timer
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
-  // Activate temporary watering with slayer when slayer button is pressed:
+  // Manually run the pump for testing:
+  testPumpButtonState = digitalRead(testPumpButtonPin);
+  if (testPumpButtonState == HIGH && tempPumpOn == false) {
+    // test pump button is pressed down for the first time
+    waterPump(true);
+    tempPumpOn = true;
+  }
+  else if (testPumpButtonState == LOW && tempPumpOn == true) {
+    // test pump button has been let go, turn the pump off
+    waterPump(false);
+    tempPumpOn = false; 
+  }
+
+
+  // Manually trigger SLAYER WATERING when slayer button is pressed:
   slayerButtonState = digitalRead(slayerButtonPin); // read the state of the slayer button
   if (slayerButtonState == HIGH){
     // button is being pressed down, activate SLAYER MODE
@@ -41,7 +60,7 @@ void loop() {
     lights(true); // activate lights
     music(true, 2); // activate music, track 2 FOR SLAYERRRR
     wateringOn=true;
-    startTime=millis(); // re-initialize      
+    startTime=millis(); // reset watering timer    
   }
   
   /** BEGIN SCHEDULED WATERING CODE **/ 
@@ -59,21 +78,21 @@ void loop() {
     lights(false); // deactivate lights
     music(false, 0); // deactivate music
     wateringOn=false;
-    startTime=millis(); // re-initialize
+    startTime=millis(); // reset watering timer   
     }
   /** END SCHEDULED WATERING CODE **/ 
-
-
 }
 
 // Function to turn the pump on/off
 // input is boolean variable 
 void waterPump(boolean pumpOn){
   if (pumpOn){
-    // code to turn the pump on
+    // code to turn the pump on here
+    
   }  
   else{
-    // code to turn pump off
+    // code to turn pump off here
+    
   } 
 }
 
@@ -81,10 +100,12 @@ void waterPump(boolean pumpOn){
 // Function to turn lights on/off
 void lights(boolean lightsOn){
   if (lightsOn){
-    // code to turn the lights on
+    // code to turn the lights on here
+    
   }  
   else{
-    // code to turn lights off
+    // code to turn lights off here
+    
   } 
 }
 
@@ -104,13 +125,16 @@ void music(boolean musicOn, int trackNum){
       case 0: 
         // do nothing
       case 1:
-        // set thunderstorm track
+        // set thunderstorm track here
+        
         break;
       case 2:
-        // set slayer track
+        // set slayer track here
+        
         break;
       case 3:
-        // set another track
+        // set another trackhere
+        
         break;
     }
   }   
