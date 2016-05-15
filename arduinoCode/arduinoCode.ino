@@ -79,7 +79,7 @@ void loop() {
     lights(false); // deactivate lights
     music(false, 0); // deactivate music
     wateringOn=false;
-    startTime=millis(); // reset watering timer   
+    startTime=millis()-wateringDuration; // reset watering timer   
     }
   /** END SCHEDULED WATERING CODE **/ 
 }
