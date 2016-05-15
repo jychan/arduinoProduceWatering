@@ -4,6 +4,7 @@
  *   
  *  REFERENCES/EXAMPLES:
  *  Pushbutton: https://www.arduino.cc/en/Tutorial/Button
+ *  Millis() definition: https://www.arduino.cc/en/Reference/Millis
  *  Millis() timing: http://stackoverflow.com/questions/26006250/execute-a-function-for-x-seconds-every-y-seconds-on-arduino
  *  
  */
