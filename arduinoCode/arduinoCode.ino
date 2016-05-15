@@ -50,12 +50,11 @@ void loop() {
     waterPump(true); // activate water pump
     lights(true); // activate lights
     music(true, 1); // activate music, track 1
-    wateringOn=true;
-    startTime=millis(); // re-initialize    
+    wateringOn=true; 
     }
 
   // stop watering
-  if (wateringOn && millis() > startTime+wateringDuration){    
+  if (wateringOn && millis() > startTime+wateringInterval+wateringDuration){    
     waterPump(false); // deactivate water pump
     lights(false); // deactivate lights
     music(false, 0); // deactivate music
